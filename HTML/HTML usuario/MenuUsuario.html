@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/stylemenu.css">
+    <link rel="stylesheet" href="../../CSS/reset.min.css">
+    <link rel="stylesheet" href="../../CSS/default.css">
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <title>Contole de estacionamento - Cadastrar veículo</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="MenuUsuario.html">
+                <h2>ETECIA</h2>
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item dropdown"><a href="#">CONSULTAR</a>
+                        <div class="sub-menu-1">
+                            <ul>
+                                <li> <a href="../../PHP/PHP usuario/ConsultarTodosVeiculos.php">TODOS OS CARROS</a></li>
+                                <li> <a href="ConsultarFuncionario.html">FUNCIONARIO</a></li>
+                                <li> <a href="../../php/PHP usuario/ConsultarTodosFuncionarios.php">TODOS
+                                        FUNCIONARIOS</a></li>
+                                <li> <a href="MenuUsuario.html">VEÍCULO POR PLACA</a></li>
+                            </ul>
+                        </div>
+                    <li> <a href="../pagina_inicial.html">SAIR</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <div class="video">
+        <video id="video" autoplay></video>
+        <script width="560" height="315" src="../../JS/camera.js"></script>
+        <br>
+        <div id="date"></div>
+        <script>
+            document.write(Date()); 
+        </script>
+    </div>
+
+    <div class="resultado">
+        <div id="resultado"></div>
+        <script src="../../JS/quagga.min.js"></script>
+
+        <script>
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#video')    // Or '#yourElement' (optional)
+                },
+                decoder: {
+                    readers: ["code_128_reader"]
+                }
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                    return
+                }
+                console.log("Initialization finished. Ready to start");
+                Quagga.start();
+            });
+
+            Quagga.onDetected(function (data) {
+
+                console.log(data);
+
+                document.querySelector('#resultado').innerHTML = data.codeResult.code;
+
+            });
+
+        </script>
+
+    </div>
+
+
+    <div class="teste">
+        <label>Consultar pela placa</label><br />
+        <form action="../../PHP/PHP usuario/ConsultarVeiculo.php" method="post" class="center">
+            <input type="text" name="Placa" class="input" placeholder="Placa do veículo:" required><br /><br />
+            <input type="submit" class="btt" value="Consultar">
+        </form>
+    </div>
+
+
+</body>
+
+</html>
